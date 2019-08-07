@@ -77,10 +77,7 @@ paths:
           description: OK
                 
 
-  #-----  Doctor  -----
-  #-----  Identity  -----
-  #-----  Patient  -----
-  #-----  Report  -----
+  #-----  Identities  -----
   #-----  User  -----
   /user/{id}/changePassword:
     post:
@@ -335,22 +332,7 @@ components:
         - password
         
 
-    Doctor:
-      properties:
-        _id:
-          type: string
-        first_name:
-          type: string
-        last_name:
-          type: string
-        speciality:
-          type: string
-      required:
-        -  _id
-        - first_name
-      
-    
-    Identity:
+    Identities:
       properties:
         _id:
           type: string
@@ -359,7 +341,7 @@ components:
         entry_hash:
           type: string
         key_pairs:
-          type: object
+          type: Custom
         stage:
           type: string
       required:
@@ -367,31 +349,6 @@ components:
         - chain_id
         - entry_hash
         - stage
-      
-    
-    Patient:
-      properties:
-        _id:
-          type: string
-        condition:
-          type: string
-        first_name:
-          type: string
-        last_name:
-          type: string
-      required:
-        -  _id
-        - first_name
-      
-    
-    Report:
-      properties:
-        _id:
-          type: string
-        date:
-          type: integer
-      required:
-        -  _id
       
     
     User:

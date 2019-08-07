@@ -1,7 +1,6 @@
 import RolesModelGenerated from "./generated/RolesModelGenerated";
 
 const customModel = {
-
   /**
    * Override here your custom queries
    * EXAMPLE:
@@ -13,7 +12,6 @@ const customModel = {
     }
 
    */
-
 };
 
 export default {
