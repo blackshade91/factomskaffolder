@@ -22,12 +22,11 @@
  *
  */
 export class IdentityBase {
+  constructor() {}
 
-    constructor() { }
-
-    public _id: string;
-    public chain_id: string;
-    public entry_hash: string;
-    public key_pairs?: Custom;
-    public stage: string;
+  public _id: string;
+  public chain_id: string;
+  public entry_hash: string;
+  public key_pairs?: string;
+  public stage: string;
 }
