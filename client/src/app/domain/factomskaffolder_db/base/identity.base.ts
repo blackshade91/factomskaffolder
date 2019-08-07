@@ -28,6 +28,6 @@ export class IdentityBase {
     public _id: string;
     public chain_id: string;
     public entry_hash: string;
-    public key_pairs?: string;
+    public key_pairs?: Custom;
     public stage: string;
 }

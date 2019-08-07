@@ -35,6 +35,7 @@ import UserController from "../controllers/Factomskaffolder_db/UserController";
 
 // End Import Controllers
 
+
 class Server {
   constructor() {
     this.app = express();
@@ -50,8 +51,8 @@ class Server {
     );
 
     // Start Init Database
-    Database_Factomskaffolder_db.init();
-    // End Init Database
+		Database_Factomskaffolder_db.init();
+ // End Init Database
 
     // Add parser
     this.app.use(bodyParser.json());
@@ -92,7 +93,7 @@ class Server {
         next();
       }
     });
-
+    
     // Start App Server
     const server = http.Server(this.app);
     this.app.use(express.static(properties.publicPath));
@@ -108,12 +109,12 @@ class Server {
     SecurityController.init(router);
 
     // Start Init Controllers
-    DoctorController.init(router);
-    IdentityController.init(router);
-    PatientController.init(router);
-    ReportController.init(router);
-    UserController.init(router);
-    // End Init Controllers
+		DoctorController.init(router);
+		IdentityController.init(router);
+		PatientController.init(router);
+		ReportController.init(router);
+		UserController.init(router);
+		 // End Init Controllers
 
     this.app.use("/", router);
   }
