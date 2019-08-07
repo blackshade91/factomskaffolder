@@ -51,22 +51,80 @@ export default init => {
           model: "Identity",
           key: '_id',
         },
-      }
-        
-      patient:  {
-        type: Sequelize.INTEGER,
-        references: {
-          model: "Patient",
-          key: '_id',
-        },
-      }
-      
+      },
       
       //EXTERNAL RELATIONS
       /*
       */
     },
-      { sequelize, tableName: "doctor", timestamps: false }
+      { sequelize, tableName: "doctor", timestamps: false, modelName: "Doctor" }
+    );
+
+    class Chain extends Sequelize.Model{}
+    Chain.init({
+      _id: { 
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      },
+      
+      chain_id: {
+        type: Sequelize.STRING, 
+        allowNull: false
+      },
+      
+      entry_hash: {
+        type: Sequelize.STRING
+      },
+
+      content: {
+        type: Sequelize.STRING
+      },
+      
+      //RELATIONS
+        
+      identity:  {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Identity",
+          key: '_id',
+        },
+      },
+      
+      //EXTERNAL RELATIONS
+      /*
+      */
+    },
+      { sequelize, tableName: "chain", timestamps: false, modelName: "Chain" }
+    );
+
+    class Entry extends Sequelize.Model{}
+    Entry.init({
+      _id: { 
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      },
+      
+      entry_hash: {
+        type: Sequelize.STRING
+      },
+
+      content: {
+        type: Sequelize.STRING
+      },
+      
+      //RELATIONS
+        
+      chain:  {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Chain",
+          key: '_id',
+        },
+      },
+    },
+      { sequelize, tableName: "entry", timestamps: false, modelName: "Entry" }
     );
 
 
@@ -95,12 +153,7 @@ export default init => {
       },
       
       key_pairs: {
-        type: Sequelize.STRING
-      },
-      
-      stage: {
-        type: Sequelize.STRING, 
-        allowNull: false
+        type: Sequelize.JSON, 
       },
       
       //RELATIONS
@@ -118,7 +171,7 @@ export default init => {
       },
       */
     },
-      { sequelize, tableName: "identity", timestamps: false }
+      { sequelize, tableName: "identity", timestamps: false, modelName: "Identity" }
     );
 
 
@@ -151,28 +204,16 @@ export default init => {
       
       //RELATIONS
         
-        
-      
-      
-      //EXTERNAL RELATIONS
-      /*
-      patient: {
+      doctor:  {
         type: Sequelize.INTEGER,
         references: {
-          model: Doctor,
+          model: "Doctor",
           key: '_id',
-        }
+        },
       },
-      patient: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: Report,
-          key: '_id',
-        }
-      },
-      */
+
     },
-      { sequelize, tableName: "patient", timestamps: false }
+      { sequelize, tableName: "patient", timestamps: false, modelName: "Patient" }
     );
 
 
@@ -189,20 +230,32 @@ export default init => {
         primaryKey: true,
         autoIncrement: true
       },
-      
-      date: {
-        type: Sequelize.DATE
+
+      description: {
+        type: Sequelize.STRING
       },
       
       //RELATIONS
-        
-      
+      doctor:  {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Doctor",
+          key: '_id',
+        },
+      },
+      patient:  {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Patient",
+          key: '_id',
+        },
+      },
       
       //EXTERNAL RELATIONS
       /*
       */
     },
-      { sequelize, tableName: "report", timestamps: false }
+      { sequelize, tableName: "report", timestamps: false, modelName: "Report" }
     );
 
 
@@ -249,27 +302,8 @@ export default init => {
       /*
       */
     },
-      { sequelize, tableName: "user", timestamps: false }
+      { sequelize, tableName: "user", timestamps: false, modelName: "User" }
     );
-
-
-    /**
-      * ------------------------------------
-      * Relations many to many
-      * ------------------------------------
-      */
-
-    
-    
-    
-    
-    Report.belongsToMany(Patient, {
-        through: "Report_patient",
-        as: "patient",
-        foreignKey: "id_Report",
-        otherKey: "id_Patient",
-        timestamps: false
-    });
 
     
   /**
@@ -310,7 +344,7 @@ export default init => {
       /*
       */
     },
-      { sequelize, tableName: "roles", timestamps: false }
+      { sequelize, tableName: "roles", modelName: "Roles", timestamps: false }
     );
 
     User.hasMany(Roles, {
