@@ -60,7 +60,7 @@ const generatedControllers = {
       res.status(safeErr.status).json(safeErr);
     }
   },
-  
+
   /**
    * PatientModel.update
    * @description CRUD ACTION update
