@@ -68,6 +68,92 @@ export class DoctorBaseService {
 
     // CRUD METHODS
 
+    /**
+    * DoctorService.create
+    *   @description CRUD ACTION create
+    *
+    */
+    create(item: Doctor): Observable<Doctor> {
+        return this.http
+            .post<Doctor>(this.contextUrl, item)
+            .pipe(map(data => data));
+    }
+
+    /**
+    * DoctorService.delete
+    *   @description CRUD ACTION delete
+    *   @param ObjectId id Id
+    *
+    */
+    remove(id: string): Observable<void> {
+        return this.http
+            .delete<void>(this.contextUrl + '/' + id)
+            .pipe(map(data => data));
+    }
+
+    /**
+    * DoctorService.findByidentity
+    *   @description CRUD ACTION findByidentity
+    *   @param Objectid key Id della risorsa identity da cercare
+    *
+    */
+    findByIdentity(id: string): Observable<Doctor[]> {
+        return this.http
+            .get<Doctor[]>(this.contextUrl + '/findByidentity/' + id)
+            .pipe(
+                map(response => response)
+            );
+    }
+
+    /**
+    * DoctorService.findBypatient
+    *   @description CRUD ACTION findBypatient
+    *   @param Objectid key Id della risorsa patient da cercare
+    *
+    */
+    findByPatient(id: string): Observable<Doctor[]> {
+        return this.http
+            .get<Doctor[]>(this.contextUrl + '/findBypatient/' + id)
+            .pipe(
+                map(response => response)
+            );
+    }
+
+    /**
+    * DoctorService.get
+    *   @description CRUD ACTION get
+    *   @param ObjectId id Id 
+    *
+    */
+    get(id: string): Observable<Doctor> {
+        return this.http
+            .get<Doctor>(this.contextUrl + '/' + id)
+            .pipe(map(data => data));
+    }
+
+    /**
+    * DoctorService.list
+    *   @description CRUD ACTION list
+    *
+    */
+    list(): Observable<Doctor[]> {
+        return this.http
+            .get<Doctor[]>(this.contextUrl)
+            .pipe(map(data => data));
+    }
+
+    /**
+    * DoctorService.update
+    *   @description CRUD ACTION update
+    *   @param ObjectId id Id
+    *
+    */
+    update(item: Doctor): Observable<Doctor> {
+        return this.http
+            .post<Doctor>(this.contextUrl + '/' + item._id, item)
+            .pipe(map(data => data));
+    }
+
 
     // Custom APIs
 

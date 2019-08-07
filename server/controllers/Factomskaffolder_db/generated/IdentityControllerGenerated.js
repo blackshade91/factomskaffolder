@@ -27,12 +27,96 @@ const generatedControllers = {
    */
   init: router => {
     const baseUrl = `${Properties.api}/identities`;
+    router.post(baseUrl + "", authorize([]), IdentityController.create);
+    router.delete(baseUrl + "/:id", authorize([]), IdentityController.delete);
+    router.get(baseUrl + "/:id", authorize([]), IdentityController.get);
+    router.get(baseUrl + "", authorize([]), IdentityController.list);
+    router.post(baseUrl + "/:id", authorize([]), IdentityController.update);
   },
 
 
   // CRUD METHODS
 
 
+  /**
+  * IdentityModel.create
+  *   @description CRUD ACTION create
+  *
+  */
+  create: async (req, res) => {
+    try {
+      const result = await IdentityModel.create(req.body);
+      res.json(result);
+    } catch (err) {
+      const safeErr = ErrorManager.getSafeError(err);
+      res.status(safeErr.status).json(safeErr);
+    }
+  },
+  
+  /**
+  * IdentityModel.delete
+  *   @description CRUD ACTION delete
+  *   @param ObjectId id Id
+  *
+  */
+  delete: async (req, res) => {
+    try {
+      const result = await IdentityModel.delete(req.params.id);
+      res.json(result);
+    } catch (err) {
+      const safeErr = ErrorManager.getSafeError(err);
+      res.status(safeErr.status).json(safeErr);
+    }
+  },
+  
+  /**
+  * IdentityModel.get
+  *   @description CRUD ACTION get
+  *   @param ObjectId id Id 
+  *
+  */
+  get: async (req, res) => {
+    try {
+      const result = await IdentityModel.get(req.params.id);
+      res.json(result);
+    } catch (err) {
+      const safeErr = ErrorManager.getSafeError(err);
+      res.status(safeErr.status).json(safeErr);
+    }
+  },
+  
+  /**
+  * IdentityModel.list
+  *   @description CRUD ACTION list
+  *
+  */
+  list: async (req, res) => {
+    try {
+      const result = await IdentityModel.list();
+      res.json(result);
+    } catch (err) {
+      const safeErr = ErrorManager.getSafeError(err);
+      res.status(safeErr.status).json(safeErr);
+    }
+  },
+  
+  
+  /**
+  * IdentityModel.update
+  *   @description CRUD ACTION update
+  *   @param ObjectId id Id
+  *
+  */
+  update: async (req, res) => {
+    try {
+      const result = await IdentityModel.update(req.body);
+      res.json(result);
+    } catch (err) {
+      const safeErr = ErrorManager.getSafeError(err);
+      res.status(safeErr.status).json(safeErr);
+    }
+  },
+  
   
   // Custom APIs
 

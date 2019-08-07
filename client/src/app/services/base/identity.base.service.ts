@@ -69,6 +69,64 @@ export class IdentityBaseService {
 
     // CRUD METHODS
 
+    /**
+    * IdentityService.create
+    *   @description CRUD ACTION create
+    *
+    */
+    create(item: Identity): Observable<Identity> {
+        return this.http
+            .post<Identity>(this.contextUrl, item)
+            .pipe(map(data => data));
+    }
+
+    /**
+    * IdentityService.delete
+    *   @description CRUD ACTION delete
+    *   @param ObjectId id Id
+    *
+    */
+    remove(id: string): Observable<void> {
+        return this.http
+            .delete<void>(this.contextUrl + '/' + id)
+            .pipe(map(data => data));
+    }
+
+    /**
+    * IdentityService.get
+    *   @description CRUD ACTION get
+    *   @param ObjectId id Id 
+    *
+    */
+    get(id: string): Observable<Identity> {
+        return this.http
+            .get<Identity>(this.contextUrl + '/' + id)
+            .pipe(map(data => data));
+    }
+
+    /**
+    * IdentityService.list
+    *   @description CRUD ACTION list
+    *
+    */
+    list(): Observable<Identity[]> {
+        return this.http
+            .get<Identity[]>(this.contextUrl)
+            .pipe(map(data => data));
+    }
+
+    /**
+    * IdentityService.update
+    *   @description CRUD ACTION update
+    *   @param ObjectId id Id
+    *
+    */
+    update(item: Identity): Observable<Identity> {
+        return this.http
+            .post<Identity>(this.contextUrl + '/' + item._id, item)
+            .pipe(map(data => data));
+    }
+
 
     // Custom APIs
 

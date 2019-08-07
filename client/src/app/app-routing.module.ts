@@ -5,6 +5,14 @@ import { CanActivate, RouterModule, Routes } from '@angular/router';
 /* START MY VIEWS IMPORT */
 // Do not edit this comment content, it will be overwritten in next Skaffolder generation
 import { HomeComponent} from './pages/home/home.component';
+import { DoctorEditComponent} from './pages/doctor-edit/doctor-edit.component';
+import { DoctorListComponent} from './pages/doctor-list/doctor-list.component';
+import { IdentityEditComponent} from './pages/identity-edit/identity-edit.component';
+import { IdentityListComponent} from './pages/identity-list/identity-list.component';
+import { PatientEditComponent} from './pages/patient-edit/patient-edit.component';
+import { PatientListComponent} from './pages/patient-list/patient-list.component';
+import { ReportEditComponent} from './pages/report-edit/report-edit.component';
+import { ReportListComponent} from './pages/report-list/report-list.component';
 
 /* END MY VIEWS IMPORT */
 
@@ -23,7 +31,15 @@ const routes: Routes = [
 
     /* START MY VIEWS */
 
+    { path: 'doctors/:id',  loadChildren: './pages/doctor-edit/doctor-edit.module#DoctorEditModule' , canActivate: [AuthGuard] },
+    { path: 'doctors',  loadChildren: './pages/doctor-list/doctor-list.module#DoctorListModule' , canActivate: [AuthGuard] },
     { path: 'home',  loadChildren: './pages/home/home.module#HomeModule' , canActivate: [AuthGuard] },
+    { path: 'identitys/:id',  loadChildren: './pages/identity-edit/identity-edit.module#IdentityEditModule' , canActivate: [AuthGuard] },
+    { path: 'identitys',  loadChildren: './pages/identity-list/identity-list.module#IdentityListModule' , canActivate: [AuthGuard] },
+    { path: 'patients/:id',  loadChildren: './pages/patient-edit/patient-edit.module#PatientEditModule' , canActivate: [AuthGuard] },
+    { path: 'patients',  loadChildren: './pages/patient-list/patient-list.module#PatientListModule' , canActivate: [AuthGuard] },
+    { path: 'reports/:id',  loadChildren: './pages/report-edit/report-edit.module#ReportEditModule' , canActivate: [AuthGuard] },
+    { path: 'reports',  loadChildren: './pages/report-list/report-list.module#ReportListModule' , canActivate: [AuthGuard] },
 
  /* END MY VIEWS */
 

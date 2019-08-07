@@ -57,6 +57,78 @@ export class ReportBaseService {
 
     // CRUD METHODS
 
+    /**
+    * ReportService.create
+    *   @description CRUD ACTION create
+    *
+    */
+    create(item: Report): Observable<Report> {
+        return this.http
+            .post<Report>(this.contextUrl, item)
+            .pipe(map(data => data));
+    }
+
+    /**
+    * ReportService.delete
+    *   @description CRUD ACTION delete
+    *   @param ObjectId id Id
+    *
+    */
+    remove(id: string): Observable<void> {
+        return this.http
+            .delete<void>(this.contextUrl + '/' + id)
+            .pipe(map(data => data));
+    }
+
+    /**
+    * ReportService.findBypatient
+    *   @description CRUD ACTION findBypatient
+    *   @param Objectid key Id della risorsa patient da cercare
+    *
+    */
+    findByPatient(id: string): Observable<Report[]> {
+        return this.http
+            .get<Report[]>(this.contextUrl + '/findBypatient/' + id)
+            .pipe(
+                map(response => response)
+            );
+    }
+
+    /**
+    * ReportService.get
+    *   @description CRUD ACTION get
+    *   @param ObjectId id Id 
+    *
+    */
+    get(id: string): Observable<Report> {
+        return this.http
+            .get<Report>(this.contextUrl + '/' + id)
+            .pipe(map(data => data));
+    }
+
+    /**
+    * ReportService.list
+    *   @description CRUD ACTION list
+    *
+    */
+    list(): Observable<Report[]> {
+        return this.http
+            .get<Report[]>(this.contextUrl)
+            .pipe(map(data => data));
+    }
+
+    /**
+    * ReportService.update
+    *   @description CRUD ACTION update
+    *   @param ObjectId id Id
+    *
+    */
+    update(item: Report): Observable<Report> {
+        return this.http
+            .post<Report>(this.contextUrl + '/' + item._id, item)
+            .pipe(map(data => data));
+    }
+
 
     // Custom APIs
 

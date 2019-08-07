@@ -27,12 +27,113 @@ const generatedControllers = {
    */
   init: router => {
     const baseUrl = `${Properties.api}/report`;
+    router.post(baseUrl + "", authorize([]), ReportController.create);
+    router.delete(baseUrl + "/:id", authorize([]), ReportController.delete);
+    router.get(baseUrl + "/findBypatient/:key", authorize([]), ReportController.findBypatient);
+    router.get(baseUrl + "/:id", authorize([]), ReportController.get);
+    router.get(baseUrl + "", authorize([]), ReportController.list);
+    router.post(baseUrl + "/:id", authorize([]), ReportController.update);
   },
 
 
   // CRUD METHODS
 
 
+  /**
+  * ReportModel.create
+  *   @description CRUD ACTION create
+  *
+  */
+  create: async (req, res) => {
+    try {
+      const result = await ReportModel.create(req.body);
+      res.json(result);
+    } catch (err) {
+      const safeErr = ErrorManager.getSafeError(err);
+      res.status(safeErr.status).json(safeErr);
+    }
+  },
+  
+  /**
+  * ReportModel.delete
+  *   @description CRUD ACTION delete
+  *   @param ObjectId id Id
+  *
+  */
+  delete: async (req, res) => {
+    try {
+      const result = await ReportModel.delete(req.params.id);
+      res.json(result);
+    } catch (err) {
+      const safeErr = ErrorManager.getSafeError(err);
+      res.status(safeErr.status).json(safeErr);
+    }
+  },
+  
+  /**
+  * ReportModel.findBypatient
+  *   @description CRUD ACTION findBypatient
+  *   @param Objectid key Id della risorsa patient da cercare
+  *
+  */
+  findBypatient: async (req, res) => {
+    try {
+      const result = await ReportModel.findBypatient(req.params.key);
+      res.json(result);
+    } catch (err) {
+      const safeErr = ErrorManager.getSafeError(err);
+      res.status(safeErr.status).json(safeErr);
+    }
+  },
+  
+  /**
+  * ReportModel.get
+  *   @description CRUD ACTION get
+  *   @param ObjectId id Id 
+  *
+  */
+  get: async (req, res) => {
+    try {
+      const result = await ReportModel.get(req.params.id);
+      res.json(result);
+    } catch (err) {
+      const safeErr = ErrorManager.getSafeError(err);
+      res.status(safeErr.status).json(safeErr);
+    }
+  },
+  
+  /**
+  * ReportModel.list
+  *   @description CRUD ACTION list
+  *
+  */
+  list: async (req, res) => {
+    try {
+      const result = await ReportModel.list();
+      res.json(result);
+    } catch (err) {
+      const safeErr = ErrorManager.getSafeError(err);
+      res.status(safeErr.status).json(safeErr);
+    }
+  },
+  
+  
+  /**
+  * ReportModel.update
+  *   @description CRUD ACTION update
+  *   @param ObjectId id Id
+  *
+  */
+  update: async (req, res) => {
+    try {
+      const result = await ReportModel.update(req.body);
+      res.json(result);
+    } catch (err) {
+      const safeErr = ErrorManager.getSafeError(err);
+      res.status(safeErr.status).json(safeErr);
+    }
+  },
+  
   
   // Custom APIs
 

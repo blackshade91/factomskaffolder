@@ -30,6 +30,58 @@ const generatedModel = {
   // CRUD METHODS
 
 
+  /**
+  * IdentityModel.create
+  *   @description CRUD ACTION create
+  *
+  */
+  async create(item) {
+    let result = await Database.getConnection().models.Identity.create(item);    return result;
+  },
+  
+  /**
+  * IdentityModel.delete
+  *   @description CRUD ACTION delete
+  *   @param ObjectId id Id
+  *
+  */
+  async delete(id) {
+    return await Database.getConnection().models.Identity.destroy({ where: { _id: id } });
+  },
+  
+  /**
+  * IdentityModel.get
+  *   @description CRUD ACTION get
+  *   @param ObjectId id Id 
+  *
+  */
+  async get(id) {
+    let result = await Database.getConnection().models.Identity.findByPk(id);
+    return result;
+  },
+  
+  /**
+  * IdentityModel.list
+  *   @description CRUD ACTION list
+  *
+  */
+  async list() { 
+    return await Database.getConnection().models.Identity.findAll();
+      },
+  
+  /**
+  * IdentityModel.update
+  *   @description CRUD ACTION update
+  *   @param ObjectId id Id
+  *
+  */
+  async update(item) { 
+    let result = await Database.getConnection().models.Identity.update(item, {
+      where: { _id: item._id }
+    });
+    return result;
+  },
+  
 
 
 };

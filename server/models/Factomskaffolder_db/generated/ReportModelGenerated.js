@@ -30,6 +30,78 @@ const generatedModel = {
   // CRUD METHODS
 
 
+  /**
+  * ReportModel.create
+  *   @description CRUD ACTION create
+  *
+  */
+  async create(item) {
+    let result = await Database.getConnection().models.Report.create(item);
+    let patient = await result.setPatient(item.patient);
+    result.patient = patient;
+        return result;
+  },
+  
+  /**
+  * ReportModel.delete
+  *   @description CRUD ACTION delete
+  *   @param ObjectId id Id
+  *
+  */
+  async delete(id) {
+    return await Database.getConnection().models.Report.destroy({ where: { _id: id } });
+  },
+  
+  /**
+  * ReportModel.findBypatient
+  *   @description CRUD ACTION findBypatient
+  *   @param Objectid key Id della risorsa patient da cercare
+  *
+  */
+  async findBypatient(key) {
+    return await Database.getConnection().models.Report.findAll({ where: { "patient": key } });
+  },
+  
+  /**
+  * ReportModel.get
+  *   @description CRUD ACTION get
+  *   @param ObjectId id Id 
+  *
+  */
+  async get(id) {
+    let result = await Database.getConnection().models.Report.findByPk(id);
+    let patient = await result.getPatient({ raw: true });
+    result.dataValues.patient = patient.map(item => item._id);
+    
+    return result;
+  },
+  
+  /**
+  * ReportModel.list
+  *   @description CRUD ACTION list
+  *
+  */
+  async list() { 
+    return await Database.getConnection().models.Report.findAll();
+      },
+  
+  /**
+  * ReportModel.update
+  *   @description CRUD ACTION update
+  *   @param ObjectId id Id
+  *
+  */
+  async update(item) { 
+    let result = await Database.getConnection().models.Report.update(item, {
+      where: { _id: item._id }
+    });
+    result = await Database.getConnection().models.Report.findByPk(item._id);
+    let patient = await result.setPatient(item.patient);
+    result.patient = patient;
+    
+    return result;
+  },
+  
 
 
 };

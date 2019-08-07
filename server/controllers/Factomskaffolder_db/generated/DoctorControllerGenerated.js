@@ -27,12 +27,130 @@ const generatedControllers = {
    */
   init: router => {
     const baseUrl = `${Properties.api}/doctor`;
+    router.post(baseUrl + "", authorize([]), DoctorController.create);
+    router.delete(baseUrl + "/:id", authorize([]), DoctorController.delete);
+    router.get(baseUrl + "/findByidentity/:key", authorize([]), DoctorController.findByidentity);
+    router.get(baseUrl + "/findBypatient/:key", authorize([]), DoctorController.findBypatient);
+    router.get(baseUrl + "/:id", authorize([]), DoctorController.get);
+    router.get(baseUrl + "", authorize([]), DoctorController.list);
+    router.post(baseUrl + "/:id", authorize([]), DoctorController.update);
   },
 
 
   // CRUD METHODS
 
 
+  /**
+  * DoctorModel.create
+  *   @description CRUD ACTION create
+  *
+  */
+  create: async (req, res) => {
+    try {
+      const result = await DoctorModel.create(req.body);
+      res.json(result);
+    } catch (err) {
+      const safeErr = ErrorManager.getSafeError(err);
+      res.status(safeErr.status).json(safeErr);
+    }
+  },
+  
+  /**
+  * DoctorModel.delete
+  *   @description CRUD ACTION delete
+  *   @param ObjectId id Id
+  *
+  */
+  delete: async (req, res) => {
+    try {
+      const result = await DoctorModel.delete(req.params.id);
+      res.json(result);
+    } catch (err) {
+      const safeErr = ErrorManager.getSafeError(err);
+      res.status(safeErr.status).json(safeErr);
+    }
+  },
+  
+  /**
+  * DoctorModel.findByidentity
+  *   @description CRUD ACTION findByidentity
+  *   @param Objectid key Id della risorsa identity da cercare
+  *
+  */
+  findByidentity: async (req, res) => {
+    try {
+      const result = await DoctorModel.findByidentity(req.params.key);
+      res.json(result);
+    } catch (err) {
+      const safeErr = ErrorManager.getSafeError(err);
+      res.status(safeErr.status).json(safeErr);
+    }
+  },
+  
+  /**
+  * DoctorModel.findBypatient
+  *   @description CRUD ACTION findBypatient
+  *   @param Objectid key Id della risorsa patient da cercare
+  *
+  */
+  findBypatient: async (req, res) => {
+    try {
+      const result = await DoctorModel.findBypatient(req.params.key);
+      res.json(result);
+    } catch (err) {
+      const safeErr = ErrorManager.getSafeError(err);
+      res.status(safeErr.status).json(safeErr);
+    }
+  },
+  
+  /**
+  * DoctorModel.get
+  *   @description CRUD ACTION get
+  *   @param ObjectId id Id 
+  *
+  */
+  get: async (req, res) => {
+    try {
+      const result = await DoctorModel.get(req.params.id);
+      res.json(result);
+    } catch (err) {
+      const safeErr = ErrorManager.getSafeError(err);
+      res.status(safeErr.status).json(safeErr);
+    }
+  },
+  
+  /**
+  * DoctorModel.list
+  *   @description CRUD ACTION list
+  *
+  */
+  list: async (req, res) => {
+    try {
+      const result = await DoctorModel.list();
+      res.json(result);
+    } catch (err) {
+      const safeErr = ErrorManager.getSafeError(err);
+      res.status(safeErr.status).json(safeErr);
+    }
+  },
+  
+  
+  /**
+  * DoctorModel.update
+  *   @description CRUD ACTION update
+  *   @param ObjectId id Id
+  *
+  */
+  update: async (req, res) => {
+    try {
+      const result = await DoctorModel.update(req.body);
+      res.json(result);
+    } catch (err) {
+      const safeErr = ErrorManager.getSafeError(err);
+      res.status(safeErr.status).json(safeErr);
+    }
+  },
+  
   
   // Custom APIs
 

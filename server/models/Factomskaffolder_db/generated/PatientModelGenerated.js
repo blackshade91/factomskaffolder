@@ -30,6 +30,58 @@ const generatedModel = {
   // CRUD METHODS
 
 
+  /**
+  * PatientModel.create
+  *   @description CRUD ACTION create
+  *
+  */
+  async create(item) {
+    let result = await Database.getConnection().models.Patient.create(item);    return result;
+  },
+  
+  /**
+  * PatientModel.delete
+  *   @description CRUD ACTION delete
+  *   @param ObjectId id Id
+  *
+  */
+  async delete(id) {
+    return await Database.getConnection().models.Patient.destroy({ where: { _id: id } });
+  },
+  
+  /**
+  * PatientModel.get
+  *   @description CRUD ACTION get
+  *   @param ObjectId id Id 
+  *
+  */
+  async get(id) {
+    let result = await Database.getConnection().models.Patient.findByPk(id);
+    return result;
+  },
+  
+  /**
+  * PatientModel.list
+  *   @description CRUD ACTION list
+  *
+  */
+  async list() { 
+    return await Database.getConnection().models.Patient.findAll();
+      },
+  
+  /**
+  * PatientModel.update
+  *   @description CRUD ACTION update
+  *   @param ObjectId id Id
+  *
+  */
+  async update(item) { 
+    let result = await Database.getConnection().models.Patient.update(item, {
+      where: { _id: item._id }
+    });
+    return result;
+  },
+  
 
 
 };

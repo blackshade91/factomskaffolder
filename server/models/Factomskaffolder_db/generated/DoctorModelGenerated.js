@@ -30,6 +30,78 @@ const generatedModel = {
   // CRUD METHODS
 
 
+  /**
+  * DoctorModel.create
+  *   @description CRUD ACTION create
+  *
+  */
+  async create(item) {
+    let result = await Database.getConnection().models.Doctor.create(item);    return result;
+  },
+  
+  /**
+  * DoctorModel.delete
+  *   @description CRUD ACTION delete
+  *   @param ObjectId id Id
+  *
+  */
+  async delete(id) {
+    return await Database.getConnection().models.Doctor.destroy({ where: { _id: id } });
+  },
+  
+  /**
+  * DoctorModel.findByidentity
+  *   @description CRUD ACTION findByidentity
+  *   @param Objectid key Id della risorsa identity da cercare
+  *
+  */
+  async findByidentity(key) {
+    return await Database.getConnection().models.Doctor.findAll({ where: { "identity": key } });
+  },
+  
+  /**
+  * DoctorModel.findBypatient
+  *   @description CRUD ACTION findBypatient
+  *   @param Objectid key Id della risorsa patient da cercare
+  *
+  */
+  async findBypatient(key) {
+    return await Database.getConnection().models.Doctor.findAll({ where: { "patient": key } });
+  },
+  
+  /**
+  * DoctorModel.get
+  *   @description CRUD ACTION get
+  *   @param ObjectId id Id 
+  *
+  */
+  async get(id) {
+    let result = await Database.getConnection().models.Doctor.findByPk(id);
+    return result;
+  },
+  
+  /**
+  * DoctorModel.list
+  *   @description CRUD ACTION list
+  *
+  */
+  async list() { 
+    return await Database.getConnection().models.Doctor.findAll();
+      },
+  
+  /**
+  * DoctorModel.update
+  *   @description CRUD ACTION update
+  *   @param ObjectId id Id
+  *
+  */
+  async update(item) { 
+    let result = await Database.getConnection().models.Doctor.update(item, {
+      where: { _id: item._id }
+    });
+    return result;
+  },
+  
 
 
 };
