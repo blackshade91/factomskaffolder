@@ -50,6 +50,7 @@ export class PatientEditComponent implements OnInit {
   externalReport: Report[];
   model: Patient;
   formValid: Boolean;
+  listDoctor: Doctor[];
 
   constructor(
     private patientService: PatientService,
@@ -78,6 +79,7 @@ export class PatientEditComponent implements OnInit {
         // this.reportService.findByPatient(id).subscribe(list => this.externalReport = list);
       }
       // Get relations
+      this.doctorService.list().subscribe(list => (this.listDoctor = list));
     });
   }
 
