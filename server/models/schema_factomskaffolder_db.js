@@ -42,12 +42,12 @@ export default init => {
                       type: Sequelize.STRING
                   },
                   
-                  //RELATIONS
+                  // RELATIONS
                     
                     
                   
                   
-                  //EXTERNAL RELATIONS
+                  // EXTERNAL RELATIONS
                   /*
                   doctor: {
                       type: Sequelize.INTEGER,
@@ -64,6 +64,15 @@ export default init => {
                     }
                   },
                   */
+
+                  identity: {
+                    type: Sequelize.INTEGER,
+                    references: {
+                      model: "Identity",
+                      key: "_id"
+                    }
+                  }
+                  // FACTOM BLOCKCHAIN
                 },
                   { sequelize, tableName: "doctor", timestamps: false }
                 );
@@ -96,7 +105,7 @@ export default init => {
                       type: Sequelize.STRING
                   },
                   
-                  //RELATIONS
+                  // RELATIONS
                     
                   doctor:  {
                       type: Sequelize.INTEGER,
@@ -108,7 +117,7 @@ export default init => {
                     
                   
                   
-                  //EXTERNAL RELATIONS
+                  // EXTERNAL RELATIONS
                   /*
                   patient: {
                       type: Sequelize.INTEGER,
@@ -118,6 +127,8 @@ export default init => {
                     }
                   },
                   */
+
+                  // FACTOM BLOCKCHAIN
                 },
                   { sequelize, tableName: "patient", timestamps: false }
                 );
@@ -141,14 +152,16 @@ export default init => {
                       type: Sequelize.DATE
                   },
                   
-                  //RELATIONS
+                  // RELATIONS
                     
                     
                   
                   
-                  //EXTERNAL RELATIONS
+                  // EXTERNAL RELATIONS
                   /*
                   */
+
+                  // FACTOM BLOCKCHAIN
                 },
                   { sequelize, tableName: "report", timestamps: false }
                 );
@@ -190,12 +203,14 @@ export default init => {
                     allowNull: false
                   },
                   
-                  //RELATIONS
+                  // RELATIONS
                   
                   
-                  //EXTERNAL RELATIONS
+                  // EXTERNAL RELATIONS
                   /*
                   */
+
+                  // FACTOM BLOCKCHAIN
                 },
                   { sequelize, tableName: "user", timestamps: false }
                 );

@@ -31,7 +31,7 @@
                     unique : true, {{/unique}}
                   }{{#equal ../name 'User'}}{{/equal}},
                   {{/notEqual}}{{/each}}
-                  //RELATIONS
+                  // RELATIONS
                   {{#each _entity._relations}}
                     {{#equal _ent1.name ../_entity.name}}{{#equal type '1:m'}}
                   {{name}}:  {
@@ -45,7 +45,7 @@
                   {{/each}}
                   
                   
-                  //EXTERNAL RELATIONS
+                  // EXTERNAL RELATIONS
                   /*
                   {{#each _entity._relations}}{{#notEqual _ent1.name ../_entity.name}}{{name}}: {
                       type: Sequelize.INTEGER{{#required}}, 
@@ -56,6 +56,17 @@
                     }
                   },
                   {{/notEqual}}{{/each}}*/
+
+                  {{#equal _entity.extra.identity true}}
+                  identity: {
+                    type: Sequelize.INTEGER,
+                    references: {
+                      model: "Identity",
+                      key: "_id"
+                    }
+                  }
+                  {{/equal}}
+                  // FACTOM BLOCKCHAIN
                 },
                   { sequelize, tableName: "{{lowercase _entity.name}}", timestamps: false }
                 );
