@@ -99,7 +99,7 @@ const generatedControllers = {
   {{name}}: async (req, res) => {
     try {
       {{#each ../resource._entity._relations}}{{#equal name ../../resource._entity.extra.factomize}}// Factom method
-      await factomize("{{_ent2.name}}", req.body, "DELETE", "{{../../resource._entity.extra.factomize}}", req.params._id);
+      await factomize("{{_ent1.name}}", req.body, "DELETE", "{{../../resource._entity.extra.factomize}}", req.params._id);
       
       {{/equal}}{{/each}}const result = await {{capitalize ../resource.name}}Model.{{name}}(req.body);
       res.json(result);
@@ -121,7 +121,7 @@ const generatedControllers = {
   {{name}}: async (req, res) => {
     try {
       {{#each ../resource._entity._relations}}{{#equal name ../../resource._entity.extra.factomize}}// Factom method
-      await factomize("{{_ent2.name}}", req.body, "DELETE", "{{../../resource._entity.extra.factomize}}", req.params._id);
+      await factomize("{{_ent1.name}}", req.body, "DELETE", "{{../../resource._entity.extra.factomize}}", req.params._id);
       
       {{/equal}}{{/each}}const result = await {{capitalize ../resource.name}}Model.{{name}}(req.params.id);
       res.json(result);
@@ -147,7 +147,7 @@ const generatedControllers = {
       req.body.identity= identityId;
       
       {{/equal}}{{#each ../resource._entity._relations}}{{#equal name ../../resource._entity.extra.factomize}}// Factom method
-      await factomize("{{_ent2.name}}", req.body, "POST", "{{../../resource._entity.extra.factomize}}");
+      await factomize("{{_ent1.name}}", req.body, "POST", "{{../../resource._entity.extra.factomize}}");
       
       {{/equal}}{{/each}}const result = await {{capitalize ../resource.name}}Model.{{name}}(req.body);
       res.json(result);

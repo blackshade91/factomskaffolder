@@ -48,7 +48,7 @@ const generatedControllers = {
   create: async (req, res) => {
     try {
       // Factom method
-      await factomize("Doctor", req.body, "POST", "doctor");
+      await factomize("Patient", req.body, "POST", "doctor");
       
       const result = await PatientModel.create(req.body);
       res.json(result);
@@ -67,7 +67,7 @@ const generatedControllers = {
   delete: async (req, res) => {
     try {
       // Factom method
-      await factomize("Doctor", req.body, "DELETE", "doctor", req.params._id);
+      await factomize("Patient", req.body, "DELETE", "doctor", req.params._id);
       
       const result = await PatientModel.delete(req.params.id);
       res.json(result);
@@ -134,7 +134,7 @@ const generatedControllers = {
   update: async (req, res) => {
     try {
       // Factom method
-      await factomize("Doctor", req.body, "DELETE", "doctor", req.params._id);
+      await factomize("Patient", req.body, "DELETE", "doctor", req.params._id);
       
       const result = await PatientModel.update(req.body);
       res.json(result);
