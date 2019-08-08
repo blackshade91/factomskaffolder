@@ -50,26 +50,6 @@ const generatedModel = {
   },
   
   /**
-  * DoctorModel.findByidentity
-  *   @description CRUD ACTION findByidentity
-  *   @param Objectid key Id della risorsa identity da cercare
-  *
-  */
-  async findByidentity(key) {
-    return await Database.getConnection().models.Doctor.findAll({ where: { "identity": key } });
-  },
-  
-  /**
-  * DoctorModel.findBypatient
-  *   @description CRUD ACTION findBypatient
-  *   @param Objectid key Id della risorsa patient da cercare
-  *
-  */
-  async findBypatient(key) {
-    return await Database.getConnection().models.Doctor.findAll({ where: { "patient": key } });
-  },
-  
-  /**
   * DoctorModel.get
   *   @description CRUD ACTION get
   *   @param ObjectId id Id 

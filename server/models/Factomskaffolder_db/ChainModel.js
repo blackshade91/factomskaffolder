@@ -4,8 +4,8 @@ import Database from "../../classes/Database_Factomskaffolder_db";
 
 const factomConnectSDK = new Factom(Properties.factom.config);
 
-const generatedModel = {
-  
+export default {
+
   /**
   * ChainModel.create
   * @param signerPrivateKey
@@ -58,8 +58,4 @@ const generatedModel = {
     }
   }
 
-};
-
-export default {
-  ...generatedModel,
 };

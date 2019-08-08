@@ -2,13 +2,14 @@ module.exports = {
   factomskaffolder_db: {
     name: "factomskaffolder_db",
     user: "postgres",
-    password: "",
-    host: "localhost",
+    password: null,
+    host: process.env.DB_HOST || "127.0.0.1",
     port: 5433,
     dialect: "postgres"
   },
 
-  // Start FA
+
+  // Factom properties
   factom: {
     config: {
       baseUrl: "https://ephemeral.api.factom.com/v1",
@@ -18,18 +19,22 @@ module.exports = {
       }
     },
     model: {
+      // Start Factom model properties
       Doctor: {
-        factomized: null,
+        factomized: "",
         has_identity: true
       },
       Patient: {
-        factomized: "Doctor", // This should be the same model name as we have in the model document.
-        has_identity: false
+        factomized: "Doctor",
       },
       Report: {
-        factomized: "Doctor", // This should be the same model name as we have in the model document.
-        has_identity: false
-      }
+        factomized: "",
+      },
+      User: {
+        factomized: "",
+      },
+
+      // End Factom model properties
     }
   },
 

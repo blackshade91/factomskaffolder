@@ -17,6 +17,7 @@ const ErrorMessages = Object.freeze({
   INVALID_LOGIN: { status: 401, message: "Not Authorized" },
   INVALID_BODY: { status: 400, message: "Invalid JSON body" },
   INVALID_QUERY: { status: 400, message: "Invalid query string" },
+  INVALID_QUERY: { status: 400, message: "Invalid query string" },
 
   // FACTOM
   INVALID_MODEL: { status: 400, message: "Invalid Model" },

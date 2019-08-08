@@ -1,21 +1,37 @@
 # Docker-compose version
-version: "2"
+version: '3'
 
 # Define the services/containers to be run
 services:
-  # Service name
-  app:
+      
+  # Database
+  database:
+    # image to build container from
+    image: mysql:5.7.24 
+    ports:
+      - "27018:27017"
+    networks:
+      - backend_network
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+    volumes:
+       - ./server/script/schemaDb_factomskaffolder_db_mysql.sql:/docker-entrypoint-initdb.d/schemaDb_factomskaffolder_db_mysql.sql
+  
+  # Backend
+  backend: 
     # directory of Dockerfile
-    build: ./
+    build: ./server
     ports:
       - "3000:3000"
     # link this service to database service
     links:
+      - database 
+    environment:
+      - DB_HOST=database
+    networks:
+      - backend_network
+    depends_on:
       - database
 
-  # Database service name
-  database:
-    # image to build container from
-    image: mongo
-    ports:
-      - "27018:27017"
+networks:
+  backend_network:

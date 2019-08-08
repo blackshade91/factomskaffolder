@@ -4,6 +4,47 @@
 
 CREATE DATABASE factomskaffolder_db;
 
+-- FACTOM BLOCKACHAIN ENTITIES
+
+--
+-- Table `identity`
+--
+
+CREATE TABLE IF NOT EXISTS identity (
+	chain_id varchar(260)  NOT NULL,
+	entry_hash varchar(260)  NOT NULL,
+	key_pairs json,
+	_id serial NOT NULL PRIMARY KEY
+);
+
+--
+-- Table `chain`
+--
+
+CREATE TABLE IF NOT EXISTS chain (
+	chain_id varchar(260)  NOT NULL,
+	entry_hash varchar(260)  NOT NULL,
+	identity int  REFERENCES identity(_id),
+	_id serial NOT NULL PRIMARY KEY,
+	content varchar(260)  NOT NULL
+
+);
+
+--
+-- Table `entry`
+--
+
+CREATE TABLE IF NOT EXISTS entry (
+	entry_hash varchar(260)  NOT NULL,
+	content varchar(260)  NOT NULL,
+
+	-- RELAZIONI
+	chain int  REFERENCES chain(_id),
+
+	_id serial NOT NULL PRIMARY KEY
+
+);
+
 -- ENTITIES
 
 --
@@ -14,20 +55,6 @@ CREATE TABLE IF NOT EXISTS "doctor" (
 	first_name varchar(40)  NOT NULL,
 	last_name varchar(40) ,
 	speciality varchar(40) ,
-	
-	_id SERIAL PRIMARY KEY
-
-);
-
---
--- Schema entity identity
---
-
-CREATE TABLE IF NOT EXISTS "identity" (
-	chain_id varchar(40)  NOT NULL,
-	entry_hash varchar(40)  NOT NULL,
-	key_pairs varchar(30) ,
-	stage varchar(40)  NOT NULL,
 	
 	_id SERIAL PRIMARY KEY
 
@@ -92,11 +119,18 @@ INSERT INTO "roles" (role, _user, _id) VALUES ('ADMIN', '1', 1);
 
 
 
--- relation 1:m identity Doctor - Identity
-ALTER TABLE doctor ADD COLUMN identity INTEGER  REFERENCES "identity"(_id);
+-- relation 1:m doctor Patient - identity
+ALTER TABLE patient ADD COLUMN identity INTEGER REFERENCES "identity"(_id);
 
--- relation 1:m patient Doctor - Patient
-ALTER TABLE doctor ADD COLUMN patient INTEGER  REFERENCES "patient"(_id);
+-- relation 1:m doctor Patient - Doctor
+ALTER TABLE patient ADD COLUMN doctor INTEGER  REFERENCES "doctor"(_id);
+
+-- relation m:m doctor Report - Doctor
+CREATE TABLE IF NOT EXISTS "Report_doctor" (
+    _id SERIAL PRIMARY KEY,
+    id_Report INTEGER  NOT NULL REFERENCES "report"(_id),
+    id_Doctor INTEGER  NOT NULL REFERENCES "doctor"(_id)
+);
 
 -- relation m:m patient Report - Patient
 CREATE TABLE IF NOT EXISTS "Report_patient" (

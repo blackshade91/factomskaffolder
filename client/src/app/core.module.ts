@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 /* START MY SERVICES IMPORTS*/
 // Do not edit this comment content, it will be overwritten in next Skaffolder generation
 import { DoctorService } from './services/doctor.service';
-import { IdentityService } from './services/identity.service';
 import { PatientService } from './services/patient.service';
 import { ReportService } from './services/report.service';
 import { UserService } from './services/user.service';
@@ -20,7 +19,6 @@ import { AuthInterceptor } from './security/auth.interceptor';
     /* START PROVIDERS */
 // Do not edit this comment content, it will be overwritten in next Skaffolder generation
     DoctorService,
-    IdentityService,
     PatientService,
     ReportService,
     UserService,

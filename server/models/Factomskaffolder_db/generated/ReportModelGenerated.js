@@ -37,6 +37,9 @@ const generatedModel = {
   */
   async create(item) {
     let result = await Database.getConnection().models.Report.create(item);
+    let doctor = await result.setDoctor(item.doctor);
+    result.doctor = doctor;
+    
     let patient = await result.setPatient(item.patient);
     result.patient = patient;
         return result;
@@ -50,6 +53,16 @@ const generatedModel = {
   */
   async delete(id) {
     return await Database.getConnection().models.Report.destroy({ where: { _id: id } });
+  },
+  
+  /**
+  * ReportModel.findBydoctor
+  *   @description CRUD ACTION findBydoctor
+  *   @param Objectid key Id della risorsa doctor da cercare
+  *
+  */
+  async findBydoctor(key) {
+    return await Database.getConnection().models.Report.findAll({ where: { "doctor": key } });
   },
   
   /**
@@ -70,6 +83,9 @@ const generatedModel = {
   */
   async get(id) {
     let result = await Database.getConnection().models.Report.findByPk(id);
+    let doctor = await result.getDoctor({ raw: true });
+    result.dataValues.doctor = doctor.map(item => item._id);
+    
     let patient = await result.getPatient({ raw: true });
     result.dataValues.patient = patient.map(item => item._id);
     
@@ -95,6 +111,10 @@ const generatedModel = {
     let result = await Database.getConnection().models.Report.update(item, {
       where: { _id: item._id }
     });
+    result = await Database.getConnection().models.Report.findByPk(item._id);
+    let doctor = await result.setDoctor(item.doctor);
+    result.doctor = doctor;
+    
     result = await Database.getConnection().models.Report.findByPk(item._id);
     let patient = await result.setPatient(item.patient);
     result.patient = patient;

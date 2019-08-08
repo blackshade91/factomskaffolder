@@ -20,6 +20,7 @@ import PatientModel from "../../../models/Factomskaffolder_db/PatientModel";
 import ErrorManager from "../../../classes/ErrorManager";
 import { authorize } from "../../../security/SecurityManager";
 import PatientController from "../PatientController";
+import { factomize, getRelationIdentityId } from "../../../services/factom";
 
 const generatedControllers = {
   /**
@@ -29,6 +30,7 @@ const generatedControllers = {
     const baseUrl = `${Properties.api}/patient`;
     router.post(baseUrl + "", authorize([]), PatientController.create);
     router.delete(baseUrl + "/:id", authorize([]), PatientController.delete);
+    router.get(baseUrl + "/findBydoctor/:key", authorize([]), PatientController.findBydoctor);
     router.get(baseUrl + "/:id", authorize([]), PatientController.get);
     router.get(baseUrl + "", authorize([]), PatientController.list);
     router.post(baseUrl + "/:id", authorize([]), PatientController.update);
@@ -45,6 +47,9 @@ const generatedControllers = {
   */
   create: async (req, res) => {
     try {
+      // Factom method
+      await factomize("Doctor", req.body, "POST", "doctor");
+      
       const result = await PatientModel.create(req.body);
       res.json(result);
     } catch (err) {
@@ -61,7 +66,26 @@ const generatedControllers = {
   */
   delete: async (req, res) => {
     try {
+      // Factom method
+      await factomize("Doctor", req.body, "DELETE", "doctor", req.params._id);
+      
       const result = await PatientModel.delete(req.params.id);
+      res.json(result);
+    } catch (err) {
+      const safeErr = ErrorManager.getSafeError(err);
+      res.status(safeErr.status).json(safeErr);
+    }
+  },
+  
+  /**
+  * PatientModel.findBydoctor
+  *   @description CRUD ACTION findBydoctor
+  *   @param Objectid key Id della risorsa doctor da cercare
+  *
+  */
+  findBydoctor: async (req, res) => {
+    try {
+      const result = await PatientModel.findBydoctor(req.params.key);
       res.json(result);
     } catch (err) {
       const safeErr = ErrorManager.getSafeError(err);
@@ -109,6 +133,9 @@ const generatedControllers = {
   */
   update: async (req, res) => {
     try {
+      // Factom method
+      await factomize("Doctor", req.body, "DELETE", "doctor", req.params._id);
+      
       const result = await PatientModel.update(req.body);
       res.json(result);
     } catch (err) {

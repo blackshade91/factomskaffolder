@@ -31,6 +31,7 @@ class Database {
     InitSchema();
 
     await UserModel.createAdminUser();
+
   }
 
   /**

@@ -28,7 +28,6 @@ import Database_Factomskaffolder_db from "./Database_Factomskaffolder_db.js";
 
 // Controllers
 import DoctorController from "../controllers/Factomskaffolder_db/DoctorController";
-import IdentityController from "../controllers/Factomskaffolder_db/IdentityController";
 import PatientController from "../controllers/Factomskaffolder_db/PatientController";
 import ReportController from "../controllers/Factomskaffolder_db/ReportController";
 import UserController from "../controllers/Factomskaffolder_db/UserController";
@@ -110,7 +109,6 @@ class Server {
 
     // Start Init Controllers
 		DoctorController.init(router);
-		IdentityController.init(router);
 		PatientController.init(router);
 		ReportController.init(router);
 		UserController.init(router);

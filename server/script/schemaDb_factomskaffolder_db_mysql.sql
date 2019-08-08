@@ -23,21 +23,6 @@ CREATE TABLE IF NOT EXISTS `doctor` (
 
 
 --
--- Struttura della tabella `identity`
---
-
-CREATE TABLE IF NOT EXISTS `identity` (
-	`chain_id` varchar(40)  NOT NULL,
-	`entry_hash` varchar(40)  NOT NULL,
-	`key_pairs` varchar(30) ,
-	`stage` varchar(40)  NOT NULL,
-	
-	`_id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT 
-
-);
-
-
---
 -- Struttura della tabella `patient`
 --
 
@@ -101,11 +86,15 @@ INSERT INTO `factomskaffolder_db`.`roles` (`role`, `_user`, `_id`) VALUES ('ADMI
 
 
 
--- relation 1:m identity Doctor - Identity
-ALTER TABLE `doctor` ADD COLUMN `identity` int(11)  REFERENCES identity(_id);
+-- relation 1:m doctor Patient - Doctor
+ALTER TABLE `patient` ADD COLUMN `doctor` int(11)  REFERENCES doctor(_id);
 
--- relation 1:m patient Doctor - Patient
-ALTER TABLE `doctor` ADD COLUMN `patient` int(11)  REFERENCES patient(_id);
+-- relation m:m doctor Report - Doctor
+CREATE TABLE IF NOT EXISTS `Report_doctor` (
+    `_id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `id_Report` int(11)  NOT NULL REFERENCES report(_id),
+    `id_Doctor` int(11)  NOT NULL REFERENCES doctor(_id)
+);
 
 -- relation m:m patient Report - Patient
 CREATE TABLE IF NOT EXISTS `Report_patient` (

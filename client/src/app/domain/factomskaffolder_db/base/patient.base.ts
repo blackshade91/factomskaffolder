@@ -16,6 +16,7 @@
  *  -- THIS FILE WILL BE OVERWRITTEN ON THE NEXT SKAFFOLDER'S CODE GENERATION --
  *
  */
+import { Doctor } from '../doctor';
 
 /**
  * This is the model of Patient object
@@ -29,4 +30,6 @@ export class PatientBase {
     public condition?: string;
     public first_name: string;
     public last_name?: string;
+    // Relations doctor
+    public doctor: Doctor | string;
 }

@@ -1,3 +1,5 @@
+import DoctorControllerGenerated from "./generated/DoctorControllerGenerated";
+
 // Properties
 import Properties from "../../properties";
 
@@ -11,56 +13,47 @@ import { authorize } from "../../security/SecurityManager";
 import Errors from "../../classes/Errors";
 import ErrorManager from "../../classes/ErrorManager";
 
-// Middleware
-import { createIdentity } from "../../services/factom";
-
-const generatedControllers = {
+const customControllers = {
+  
   /**
-   * Init routes
-   */
-  init: router => {
-    const baseUrl = `${Properties.api}/doctor`;
-    router.post(baseUrl + "", generatedControllers.create);
-    router.get(baseUrl + "", generatedControllers.list);
-  },
-
-  // CRUD METHODS
-
-  /**
-   * DoctorController.create
-   * @description CRUD ACTION create
+   * Override here your custom routes
+   * EXAMPLE:
    *
-   */
-  create: async (req, res) => {
-    try {
-      // Factom method
-      const identityId = await createIdentity();
-      req.body['identity'] = identityId;
+    
+   init: router => {
+     const baseUrl = `${Properties.api}/doctor`;
+     
+     // custom route
+     router.get(baseUrl + "/:id", customControllers.get);
+     
+     // Init super
+     DoctorControllerGenerated.init(router);
+    },
 
-      const result = await DoctorModel.create(req.body);
-      res.json(result);
-    } catch (err) {
-      const safeErr = ErrorManager.getSafeError(err);
-      res.status(safeErr.status).json(safeErr);
-    }
-  },
+  */
 
   /**
-   * DoctorController.list
-   * @description CRUD ACTION list
+   * Override here your custom controllers
+   * EXAMPLE:
    *
-   */
-  list: async (req, res) => {
-    try {
-      const result = await DoctorModel.list();
-      res.json(result);
-    } catch (err) {
-      const safeErr = ErrorManager.getSafeError(err);
-      res.status(safeErr.status).json(safeErr);
+   
+    get: async (req, res) => {
+      try {
+        console.log("This is my custom controller");
+        const result = await DoctorModel.get(req.params.id);
+        res.json(result);
+      } catch (err) {
+        const safeErr = ErrorManager.getSafeError(err);
+        res.status(safeErr.status).json(safeErr);
+      }
     }
-  }
+
+   */
+   
 };
 
 export default {
-  ...generatedControllers
+  ...DoctorControllerGenerated,
+  ...customControllers
 };
+

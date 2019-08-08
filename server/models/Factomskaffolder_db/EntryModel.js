@@ -6,8 +6,8 @@ import canonicalize from 'canonical-json';
 
 const factomConnectSDK = new Factom(Properties.factom.config);
 
-const generatedModel = {
-  
+export default {
+
   /**
   * EntryModel.create
   * @param chainId
@@ -54,9 +54,4 @@ const generatedModel = {
     }
   },
 
-};
-
-
-export default {
-  ...generatedModel,
 };

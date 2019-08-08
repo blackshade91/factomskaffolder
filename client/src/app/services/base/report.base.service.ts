@@ -40,6 +40,10 @@ import { Report } from '../../domain/factomskaffolder_db/report';
 		},
 		//RELATIONS
 		//EXTERNAL RELATIONS
+		doctor: [{
+			type: Schema.ObjectId,
+			ref : "Report"
+		}],
 		patient: [{
 			type: Schema.ObjectId,
 			ref : "Report"
@@ -78,6 +82,20 @@ export class ReportBaseService {
         return this.http
             .delete<void>(this.contextUrl + '/' + id)
             .pipe(map(data => data));
+    }
+
+    /**
+    * ReportService.findBydoctor
+    *   @description CRUD ACTION findBydoctor
+    *   @param Objectid key Id della risorsa doctor da cercare
+    *
+    */
+    findByDoctor(id: string): Observable<Report[]> {
+        return this.http
+            .get<Report[]>(this.contextUrl + '/findBydoctor/' + id)
+            .pipe(
+                map(response => response)
+            );
     }
 
     /**

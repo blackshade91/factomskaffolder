@@ -1,6 +1,7 @@
 import UserModelGenerated from "./generated/UserModelGenerated";
 
 const customModel = {
+
   /**
    * Override here your custom queries
    * EXAMPLE:
@@ -12,6 +13,7 @@ const customModel = {
     }
 
    */
+
 };
 
 export default {

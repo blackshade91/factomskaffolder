@@ -20,7 +20,6 @@ import ReportModel from "../../../models/Factomskaffolder_db/ReportModel";
 import ErrorManager from "../../../classes/ErrorManager";
 import { authorize } from "../../../security/SecurityManager";
 import ReportController from "../ReportController";
-
 const generatedControllers = {
   /**
    * Init routes
@@ -29,6 +28,7 @@ const generatedControllers = {
     const baseUrl = `${Properties.api}/report`;
     router.post(baseUrl + "", authorize([]), ReportController.create);
     router.delete(baseUrl + "/:id", authorize([]), ReportController.delete);
+    router.get(baseUrl + "/findBydoctor/:key", authorize([]), ReportController.findBydoctor);
     router.get(baseUrl + "/findBypatient/:key", authorize([]), ReportController.findBypatient);
     router.get(baseUrl + "/:id", authorize([]), ReportController.get);
     router.get(baseUrl + "", authorize([]), ReportController.list);
@@ -63,6 +63,22 @@ const generatedControllers = {
   delete: async (req, res) => {
     try {
       const result = await ReportModel.delete(req.params.id);
+      res.json(result);
+    } catch (err) {
+      const safeErr = ErrorManager.getSafeError(err);
+      res.status(safeErr.status).json(safeErr);
+    }
+  },
+  
+  /**
+  * ReportModel.findBydoctor
+  *   @description CRUD ACTION findBydoctor
+  *   @param Objectid key Id della risorsa doctor da cercare
+  *
+  */
+  findBydoctor: async (req, res) => {
+    try {
+      const result = await ReportModel.findBydoctor(req.params.key);
       res.json(result);
     } catch (err) {
       const safeErr = ErrorManager.getSafeError(err);

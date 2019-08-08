@@ -23,6 +23,7 @@ import Sequelize from "sequelize";
 import Logger from "../../../classes/Logger";
 
 const generatedModel = {
+
   /**
    * Set Model
    */
@@ -35,11 +36,16 @@ const generatedModel = {
    */
   getModel: () => {
     return generatedModel.model;
-  }
+  },
 
   // Start queries
+    
 
   // CRUD METHODS
+
+
+
+
 };
 
 export default generatedModel;

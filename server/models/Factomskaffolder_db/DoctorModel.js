@@ -1,43 +1,22 @@
-import Database from "../../classes/Database_Factomskaffolder_db";
-import IdentityModel from './IdentityModel';
+import DoctorModelGenerated from "./generated/DoctorModelGenerated";
 
-const generatedModel = {
-
-  /**
-  * DoctorModel.create
-  * @description CRUD ACTION create
-  * @param first_name
-  * @param last_name
-  * @param speciality
-  */
-  create: async ({first_name, last_name, speciality, identity = null}) => {
-    // If the factom identity service is disabled, the identity will be null
-    // otherwise, will receive the identity related to this model.
-    try{
-      let result = await Database.getConnection().models.Doctor.create({
-        first_name, last_name, speciality, identity,
-      });
-      return result;
-    } catch(e) {
-      console.log(e);
-    }
-  },
+const customModel = {
 
   /**
-  * DoctorModel.list
-  * @description CRUD ACTION list
-  *
-  */
-  async list() {
-    try {
-      let result = await Database.getConnection().models.Doctor.findAll();
-      return result;
-    } catch (e) {
-      console.log(e);
+   * Override here your custom queries
+   * EXAMPLE:
+   *
+   
+    async get(id) {
+      console.log("This is my custom query");
+      return await DoctorModelGenerated.getModel().findOne({ _id: id });
     }
-  },
+
+   */
+
 };
 
 export default {
-  ...generatedModel
+  ...DoctorModelGenerated,
+  ...customModel
 };

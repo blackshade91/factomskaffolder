@@ -19,6 +19,34 @@
 
                     <div class="pb-30">
                         <div class="mb-20">
+                            <label>Doctor</label>
+
+                            <span class="dropdown ml-20">
+                                <button class="btn btn-dropdown dropdown-toggle" type="button" id="dropdownMenuButtondoctor" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    Add
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButtondoctor">
+                                    <button class="dropdown-item" *ngFor="let item of listDoctor" [class.disabled]="containDoctor(item._id)" (click)="$event.preventDefault(); containDoctor(item._id) || addDoctor(item._id)">{{item._id}}
+                                    </button>
+                                </div>
+                            </span>
+                        </div>
+                        <div class="mb-40">
+                            <ul class="list-group">
+                                <li class="list-group-item" *ngIf="!item.doctor || item.doctor.length == 0">No item found</li>
+                                <li class="list-group-item" *ngFor="let obj of item.doctor; let i = index">
+                                    {{obj}}
+
+                                    <button class="btn btn-danger pull-right" type="button" (click)="removeDoctor(i)">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="pb-30">
+                        <div class="mb-20">
                             <label>Patient</label>
 
                             <span class="dropdown ml-20">

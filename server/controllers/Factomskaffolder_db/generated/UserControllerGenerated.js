@@ -20,7 +20,6 @@ import UserModel from "../../../models/Factomskaffolder_db/UserModel";
 import ErrorManager from "../../../classes/ErrorManager";
 import { authorize } from "../../../security/SecurityManager";
 import UserController from "../UserController";
-
 const generatedControllers = {
   /**
    * Init routes

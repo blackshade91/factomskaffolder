@@ -1,4 +1,3 @@
-
 import ReportControllerGenerated from "./generated/ReportControllerGenerated";
 
 // Properties
@@ -14,52 +13,47 @@ import { authorize } from "../../security/SecurityManager";
 import Errors from "../../classes/Errors";
 import ErrorManager from "../../classes/ErrorManager";
 
-const generatedControllers = {
+const customControllers = {
+  
   /**
-   * Init routes
-   */
-  init: router => {
-    const baseUrl = `${Properties.api}/report`;
-    router.get(baseUrl + "", generatedControllers.list);
-    router.post(baseUrl + "", generatedControllers.create);
-  },
-
-
-  // CRUD METHODS
-
-  /**
-   * ReportModel.create
-   * @description CRUD ACTION create
+   * Override here your custom routes
+   * EXAMPLE:
    *
-   */
-  create: async (req, res) => {
-    try {
-      const result = await ReportModel.create(req.body);
-      res.json(result);
-    } catch (err) {
-      const safeErr = ErrorManager.getSafeError(err);
-      res.status(safeErr.status).json(safeErr);
-    }
-  },
+    
+   init: router => {
+     const baseUrl = `${Properties.api}/report`;
+     
+     // custom route
+     router.get(baseUrl + "/:id", customControllers.get);
+     
+     // Init super
+     ReportControllerGenerated.init(router);
+    },
+
+  */
 
   /**
-   * ReportModel.list
-   *   @description CRUD ACTION list
+   * Override here your custom controllers
+   * EXAMPLE:
    *
-   */
-  list: async (req, res) => {
+   
+    get: async (req, res) => {
       try {
-        const result = await ReportModel.list();
+        console.log("This is my custom controller");
+        const result = await ReportModel.get(req.params.id);
         res.json(result);
       } catch (err) {
         const safeErr = ErrorManager.getSafeError(err);
         res.status(safeErr.status).json(safeErr);
       }
-    },
+    }
 
+   */
+   
 };
 
 export default {
-  ...generatedControllers
+  ...ReportControllerGenerated,
+  ...customControllers
 };
 

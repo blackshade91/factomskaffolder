@@ -27,5 +27,7 @@ export class ReportBase {
 
     public _id: string;
     public date?: Date;
+    // Relations m:m doctor
+    public doctor: string[];
     // Relations m:m patient
     public patient: string[]}

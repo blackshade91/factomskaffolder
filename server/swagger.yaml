@@ -77,7 +77,221 @@ paths:
           description: OK
                 
 
-  #-----  Identities  -----
+  #-----  Doctor  -----
+  /doctor/:
+    post:
+      summary: CRUD ACTION create
+      tags:
+        - Doctor
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Doctor"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                speciality:
+                  type: string
+    get:
+      summary: CRUD ACTION list
+      tags:
+        - Doctor
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Doctor"
+    
+  /doctor/{id}:
+    delete:
+      summary: CRUD ACTION delete
+      tags:
+        - Doctor
+      parameters:
+        - name: id
+          in: path
+          description: Id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+    get:
+      summary: CRUD ACTION get
+      tags:
+        - Doctor
+      parameters:
+        - name: id
+          in: path
+          description: Id 
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Doctor"
+    post:
+      summary: CRUD ACTION update
+      tags:
+        - Doctor
+      parameters:
+        - name: id
+          in: path
+          description: Id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Doctor"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Doctor"
+    
+  #-----  Patient  -----
+  #-----  Report  -----
+  /report/:
+    post:
+      summary: CRUD ACTION create
+      tags:
+        - Report
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Report"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type: integer
+    get:
+      summary: CRUD ACTION list
+      tags:
+        - Report
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Report"
+    
+  /report/{id}:
+    delete:
+      summary: CRUD ACTION delete
+      tags:
+        - Report
+      parameters:
+        - name: id
+          in: path
+          description: Id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+    get:
+      summary: CRUD ACTION get
+      tags:
+        - Report
+      parameters:
+        - name: id
+          in: path
+          description: Id 
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Report"
+    post:
+      summary: CRUD ACTION update
+      tags:
+        - Report
+      parameters:
+        - name: id
+          in: path
+          description: Id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Report"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Report"
+    
+  /report/findBypatient/{key}:
+    get:
+      summary: CRUD ACTION findBypatient
+      tags:
+        - Report
+      parameters:
+        - name: key
+          in: path
+          description: Id della risorsa patient da cercare
+          required: true
+          schema:
+            type: Objectid
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Report"
+    
   #-----  User  -----
   /user/{id}/changePassword:
     post:
@@ -332,23 +546,44 @@ components:
         - password
         
 
-    Identities:
+    Doctor:
       properties:
         _id:
           type: string
-        chain_id:
+        first_name:
           type: string
-        entry_hash:
+        last_name:
           type: string
-        key_pairs:
-          type: Custom
-        stage:
+        speciality:
           type: string
       required:
         -  _id
-        - chain_id
-        - entry_hash
-        - stage
+        - first_name
+      
+    
+    Patient:
+      properties:
+        _id:
+          type: string
+        condition:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+      required:
+        -  _id
+        - first_name
+      
+    
+    Report:
+      properties:
+        _id:
+          type: string
+        date:
+          type: integer
+      required:
+        -  _id
       
     
     User:

@@ -47,9 +47,9 @@ import { Patient } from '../../domain/factomskaffolder_db/patient';
 		},
 		//RELATIONS
 		//EXTERNAL RELATIONS
-		patient: {
+		doctor: {
 			type: Schema.ObjectId,
-			ref : "Doctor"
+			ref : "Patient"
 		},
 		patient: [{
 			type: Schema.ObjectId,
@@ -89,6 +89,20 @@ export class PatientBaseService {
         return this.http
             .delete<void>(this.contextUrl + '/' + id)
             .pipe(map(data => data));
+    }
+
+    /**
+    * PatientService.findBydoctor
+    *   @description CRUD ACTION findBydoctor
+    *   @param Objectid key Id della risorsa doctor da cercare
+    *
+    */
+    findByDoctor(id: string): Observable<Patient[]> {
+        return this.http
+            .get<Patient[]>(this.contextUrl + '/findBydoctor/' + id)
+            .pipe(
+                map(response => response)
+            );
     }
 
     /**

@@ -50,6 +50,16 @@ const generatedModel = {
   },
   
   /**
+  * PatientModel.findBydoctor
+  *   @description CRUD ACTION findBydoctor
+  *   @param Objectid key Id della risorsa doctor da cercare
+  *
+  */
+  async findBydoctor(key) {
+    return await Database.getConnection().models.Patient.findAll({ where: { "doctor": key } });
+  },
+  
+  /**
   * PatientModel.get
   *   @description CRUD ACTION get
   *   @param ObjectId id Id 
