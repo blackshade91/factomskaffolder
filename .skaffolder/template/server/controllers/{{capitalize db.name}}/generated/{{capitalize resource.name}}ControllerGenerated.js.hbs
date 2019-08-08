@@ -28,7 +28,7 @@ import ErrorManager from "../../../classes/ErrorManager";
 import { authorize } from "../../../security/SecurityManager";
 import {{capitalize resource.name}}Controller from "../{{capitalize resource.name}}Controller";{{#equal resource._entity.extra.identity true}}
 import { createIdentity } from "../../../services/factom";
-{{/equal}}{{#notNull resource._entity.extra.factomizeEntity}}
+{{/equal}}{{#notNull resource._entity.extra.factomize}}
 import { factomize, getRelationIdentityId } from "../../../services/factom";
 {{/notNull}}
 
@@ -98,10 +98,10 @@ const generatedControllers = {
   */
   {{name}}: async (req, res) => {
     try {
-      {{#notNull resource._entity.extra.factomize}}
+      {{#each ../_entity._relations}}{{#equal name resource._entity.extra.factomize}}
       // Factom method
-      await factomize("{{resource._entity.extra.factomizeEntity}}", req.body, "PUT", "{{resource._entity.extra.factomizeAttr}}", req.params.id);
-      {{/notNull}}
+      await factomize("{{_ent1.name}}", req.body, "PUT", "{{resource._entity.extra.factomize}}", req.params.id);
+      {{/equal}}{{/each}}
       const result = await {{capitalize ../resource.name}}Model.{{name}}(req.body);
       res.json(result);
     } catch (err) {
@@ -121,10 +121,10 @@ const generatedControllers = {
   */
   {{name}}: async (req, res) => {
     try {
-      {{#notNull resource._entity.extra.factomize}}
+      {{#each ../_entity._relations}}{{#equal name resource._entity.extra.factomize}}
       // Factom method
-      await factomize("{{resource._entity.extra.factomizeEntity}}", req.body, "PUT", "{{resource._entity.extra.factomizeAttr}}", req.params.id);
-      {{/notNull}}
+      await factomize("{{_ent1.name}}", req.body, "DELETE", "{{resource._entity.extra.factomize}}", req.params.id);
+      {{/equal}}{{/each}}
       const result = await {{capitalize ../resource.name}}Model.{{name}}(req.params.id);
       res.json(result);
     } catch (err) {
@@ -148,10 +148,11 @@ const generatedControllers = {
       // Factom method
       const identityId = await createIdentity();
       req.body.identity= identityId;
-      {{/equal}}{{#notNull resource._entity.extra.factomize}}
+      {{/equal}}
+      {{#each ../_entity._relations}}{{#equal name resource._entity.extra.factomize}}
       // Factom method
-      await factomize("{{resource._entity.extra.factomizeEntity}}", req.body, "POST", "{{resource._entity.extra.factomizeAttr}}");
-      {{/notNull}}
+      await factomize("{{_ent1.name}}", req.body, "POST", "{{resource._entity.extra.factomize}}");
+      {{/equal}}{{/each}}
 
       const result = await {{capitalize ../resource.name}}Model.{{name}}(req.body);
       res.json(result);

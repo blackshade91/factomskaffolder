@@ -5,7 +5,7 @@
         {
             "factomPartial": `{{#each dbs}}{{#each db._resources}}{{#notNull _entity}}
             {{_entity.name}}: {
-                factomized: "{{_entity.extra.factomizeEntity}}",{{#equal _entity.extra.identity true}}
+                factomized: "{{#each _entity._relations}}{{#equal name _entity.extra.factomize}}{{_ent1.name}}{{/equal}}{{/each}}",{{#equal _entity.extra.identity true}}
                 has_identity: true{{/equal}}
             },{{/notNull}}{{/each}}{{/each}}
             `,

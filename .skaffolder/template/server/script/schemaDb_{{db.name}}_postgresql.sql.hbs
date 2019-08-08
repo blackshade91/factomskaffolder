@@ -85,7 +85,7 @@ INSERT INTO "roles" (role, _user, _id) VALUES ('ADMIN', '1', 1);
 
 {{/equal}}{{/db._entity}}
 
-{{#db._entity}}{{#_relations}}{{#equal name ../extra.factomizeAttr}}
+{{#db._entity}}{{#_relations}}{{#equal name ../extra.factomize}}
 -- relation 1:m {{name}} {{_ent1.name}} - identity
 ALTER TABLE {{lowercase ../name}} ADD COLUMN identity INTEGER REFERENCES "identity"(_id);
 {{/equal}}{{#equal _ent1.name ../name}}{{#equal type '1:m'}}
