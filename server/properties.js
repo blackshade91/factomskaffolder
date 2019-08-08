@@ -8,6 +8,7 @@ module.exports = {
     dialect: "postgres"
   },
 
+  // Start FA
   factom: {
     config: {
       baseUrl: "https://ephemeral.api.factom.com/v1",
